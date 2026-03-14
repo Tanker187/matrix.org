@@ -1,5 +1,5 @@
 [[platinum]]
-name = "Element"
+name = "Element Creations Ltd."
 website = "https://element.io"
 logo = "element.svg"
 
@@ -92,6 +92,11 @@ logo = "lu-cix.svg"
 name = "meedio"
 website = "https://meedio.me/"
 logo = "meedio.png"
+
+[[silver]]
+name = "Pangea Chat"
+website = "https://pangea.chat/"
+logo = "pangea-chat.svg"
 
 [[silver]]
 name = "Rocket.Chat"
