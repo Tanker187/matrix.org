@@ -6,6 +6,20 @@
 	window.et_is_vertical_nav    = $( 'body' ).hasClass( 'et_vertical_nav' );
 	window.et_is_fixed_nav       = $( 'body' ).hasClass( 'et_fixed_nav' );
 
+	// Simple HTML-escaping helper to prevent DOM text from being interpreted as HTML.
+	function et_escape_html( str ) {
+		if ( 'string' !== typeof str ) {
+			return str;
+		}
+
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
+	}
+
 	jQuery.fn.reverse = [].reverse;
 
 	jQuery.fn.closest_descendent = function( selector ) {
@@ -2726,7 +2740,7 @@
 									default_value = et_pb_custom.captcha;
 								}
 
-								et_fields_message += '<li>' + default_value + '</li>';
+								et_fields_message += '<li>' + et_escape_html( default_value ) + '</li>';
 							}
 
 							// add error message if email field is not empty and fails the email validation
@@ -2735,7 +2749,7 @@
 								this_et_contact_error = true;
 
 								if ( ! et_email_reg.test( this_val ) ) {
-									et_message += '<li>' + et_pb_custom.invalid + '</li>';
+									et_message += '<li>' + et_escape_html( et_pb_custom.invalid ) + '</li>';
 								}
 							}
 						});
