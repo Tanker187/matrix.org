@@ -4,6 +4,9 @@ on:
   pull_request_target:  # unblock read/write repository permission, even when it is triggered from a public fork - https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions
     types: [opened, reopened, ready_for_review]  # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=ready_for_review#pull_request
 
+permissions:
+  contents: read
+
 jobs:
   missing-template:
     name: Auto-draft PRs missing template
@@ -14,6 +17,11 @@ jobs:
                        # https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Check if the PR template was deleted
         env:
           GH_TOKEN: ${{ github.token }}
